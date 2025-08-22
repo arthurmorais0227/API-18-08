@@ -23,7 +23,7 @@ app.get("/bruxos/:id", (req, res) => {
     res.status(200).json(bruxo);
   } else {
     res.status(404).json({
-      mensagem: "Bruxo não encontrado!",
+      mensagem: "Bruxo não encontrado com esse id!",
     });
   }
 });
@@ -39,7 +39,7 @@ app.get("/bruxos/nome/:nome", (req, res) => {
     res.status(200).json(bruxosEncontrados);
   } else {
     res.status(404).json({
-      mensagem: "Bruxo(s) mão encontrado(s)!",
+      mensagem: "Bruxo(s) mão encontrado(s)! com esse nome!",
     });
   }
 });
@@ -56,6 +56,16 @@ app.get("/bruxos/casa/:casa", (req, res) => {
     res.status(404).json({
       mensagem: "Nenhum bruxo encontrado nessa casa!",
     });
+  }
+});
+
+app.get("/bruxos/vivos/nao", (req, res) => {
+  const resultado = bruxos.filter(b => !b.status);
+
+  if (resultado) {
+    res.status(200).json(resultado);
+  } else {
+    res.status(404).json({mensagem: "Nenhum bruxo morto encontrado!"})
   }
 });
 
